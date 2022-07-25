@@ -80,7 +80,6 @@ async function getUserByUsername(userName) {
   }
 }
 
-//hello
 
 module.exports = {
   createUser,
