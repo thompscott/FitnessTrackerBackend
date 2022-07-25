@@ -15,7 +15,7 @@ async function createUser({ username, password }) {
 
     return user;
   } catch (error) {
-    console.error ("failed to create user!")
+    console.error("failed to create user!")
     throw error;
   }
 }
@@ -26,7 +26,7 @@ async function getUser({ username, password }) {
       rows: [user],
     } = await client.query(
       `
-      SELECT *
+      SELECT id, username
       FROM users
       WHERE username=$1 AND password=$2;
     `,
@@ -35,7 +35,7 @@ async function getUser({ username, password }) {
 
     return user;
   } catch (error) {
-    console.error ("failed to get user!")
+    console.error("failed to get user!")
     throw error;
   }
 }
@@ -55,7 +55,7 @@ async function getUserById(userId) {
 
     return user;
   } catch (error) {
-    console.error ("failed to get user!")
+    console.error("failed to get user!")
     throw error;
   }
 }
@@ -66,7 +66,7 @@ async function getUserByUsername(userName) {
       rows: [user],
     } = await client.query(
       `
-      SELECT id, username
+      SELECT *
       FROM users
       WHERE username=$1;
     `,
@@ -75,7 +75,7 @@ async function getUserByUsername(userName) {
 
     return user;
   } catch (error) {
-    console.error ("failed to get user!")
+    console.error("failed to get user!")
     throw error;
   }
 }
