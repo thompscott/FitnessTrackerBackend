@@ -21,7 +21,23 @@ async function createUser({ username, password }) {
 }
 
 async function getUser({ username, password }) {
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+      SELECT *
+      FROM users
+      WHERE username=$1;
+    `,
+      [username]
+    );
 
+    return user;
+  } catch (error) {
+    console.error ("failed to get user!")
+    throw error;
+  }
 }
 
 async function getUserById(userId) {
