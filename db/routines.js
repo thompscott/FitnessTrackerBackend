@@ -1,8 +1,10 @@
 const client = require("./client");
 
 async function createRoutine({ creatorId, isPublic, name, goal }) {}
-
-async function getRoutineById(id) {}
+//first branch routines
+async function getRoutineById(id) {
+  
+}
 
 async function getRoutinesWithoutActivities() {}
 
