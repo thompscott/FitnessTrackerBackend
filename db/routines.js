@@ -8,7 +8,6 @@ async function createRoutine({ creatorId, isPublic, name, goal }) {
        RETURNING *;`,
       [creatorId, isPublic, name, goal]
     );
-    console.log(rows[0], 'New Routine')
     return rows[0];
   } catch (error) {
     console.error("failed to create routine!")
@@ -22,7 +21,21 @@ async function getRoutineById(id) {
 
 async function getRoutinesWithoutActivities() { }
 
-async function getAllRoutines() { }
+async function getAllRoutines() {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT *
+      FROM routines;
+    `
+    );
+
+    return rows;
+  } catch (error) {
+    console.error("failed to get routines!");
+    throw error;
+  }
+}
 
 async function getAllPublicRoutines() { }
 
