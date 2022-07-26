@@ -132,8 +132,15 @@ describe("DB Routines", () => {
           isPublic: routine.isPublic,
           name: routine.name,
           goal: routine.goal,
-        })
+    })
       );
+      console.log ({
+        id: 1,
+        creatorId: routine.creatorId,
+        isPublic: routine.isPublic,
+        name: routine.name,
+        goal: routine.goal,
+      })
     });
   });
 
