@@ -84,12 +84,10 @@ async function updateActivity({ id, ...fields }) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
-    console.log(setString, "this is the setString")
-    console.log(fields, "this is the fields")
 
   try {
     if (setString.length > 0) {
-      const { act } = await client.query(
+      const  { rows }  = await client.query(
         `
         UPDATE activities
         SET ${setString}
@@ -98,7 +96,7 @@ async function updateActivity({ id, ...fields }) {
       `,
         Object.values(fields)
       );
-      return act;
+      return rows[0];
     }
   } catch (error) {
     console.error("failed to update activity!");
