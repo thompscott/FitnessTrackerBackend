@@ -1,4 +1,5 @@
 const client = require("./client");
+const { attachActivitiesToRoutines } = require("./activities")
 
 async function createRoutine({ creatorId, isPublic, name, goal }) {
   try {
@@ -24,16 +25,16 @@ async function getRoutinesWithoutActivities() { }
 async function getAllRoutines() {
   try {
 
-    const { rows } = await client.query(
+    const { rows: routines } = await client.query(
       `
-      SELECT * 
+      SELECT routines.*, users.username AS "creatorName"
       FROM routines
-      FULL JOIN users
-      ON routines."creatorId" = users.id;
+      JOIN users
+      ON routines."creatorId" = users.id
     `
     );
-    console.log(rows, "all of our routines")
-    return rows;
+    console.log(routines, "all of our routines")
+    return attachActivitiesToRoutines(routines);
   } catch (error) {
     console.error("failed to get routines!");
     throw error;
