@@ -30,7 +30,7 @@ async function getAllRoutines() {
       SELECT routines.*, users.username AS "creatorName"
       FROM routines
       JOIN users
-      ON routines."creatorId" = users.id
+      ON routines."creatorId" = users.id;
     `
     );
     return attachActivitiesToRoutines(routines);
@@ -40,13 +40,90 @@ async function getAllRoutines() {
   }
 }
 
-async function getAllPublicRoutines() { }
+async function getAllPublicRoutines() {
+  try {
 
-async function getAllRoutinesByUser({ username }) { }
+    const { rows: routines } = await client.query(
+      `
+      SELECT routines.*, users.username AS "creatorName"
+      FROM routines
+      JOIN users
+      ON routines."creatorId" = users.id
+      WHERE "isPublic"=true;
+    `
+    );
+    return attachActivitiesToRoutines(routines);
+  } catch (error) {
+    console.error("failed to get routines!");
+    throw error;
+  }
+}
 
-async function getPublicRoutinesByUser({ username }) { }
+async function getAllRoutinesByUser({ username }) {
+  try {
 
-async function getPublicRoutinesByActivity({ id }) { }
+    const { rows: routines } = await client.query(
+      `
+      SELECT routines.*, users.username AS "creatorName"
+      FROM routines
+      JOIN users
+      ON routines."creatorId" = users.id
+      WHERE users.username=$1;
+    `, [username]
+    );
+    return attachActivitiesToRoutines(routines);
+  } catch (error) {
+    console.error("failed to get routines!");
+    throw error;
+  }
+ }
+
+async function getPublicRoutinesByUser({ username }) {
+  try {
+
+    const { rows: routines } = await client.query(
+      `
+      SELECT routines.*, users.username AS "creatorName"
+      FROM routines
+      JOIN users
+      ON routines."creatorId" = users.id
+      WHERE users.username=$1 AND "isPublic"=true;
+    `, [username]
+    );
+    return attachActivitiesToRoutines(routines);
+  } catch (error) {
+    console.error("failed to get routines!");
+    throw error;
+  }
+}
+
+async function getPublicRoutinesByActivity({ id }) {
+  try {
+
+    const { rows: routines } = await client.query(
+      `
+      SELECT routines.*, users.username AS "creatorName"
+      FROM routines
+      JOIN users
+      ON routines."creatorId" = users.id
+      WHERE "isPublic"=true;
+    `
+    );
+    let publicRoutines = await attachActivitiesToRoutines(routines);
+    publicRoutines = publicRoutines.filter(routine => {
+      for (let i = 0; i < routine.activities.length; i++) {
+        if (routine.activities[i].id === id) {
+          return true;
+        }
+      }
+      return false;
+    });
+    return publicRoutines;
+  } catch (error) {
+    console.error("failed to get routines!");
+    throw error;
+  }
+}
 
 async function updateRoutine({ id, ...fields }) { }
 
