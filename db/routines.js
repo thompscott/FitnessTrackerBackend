@@ -17,10 +17,38 @@ async function createRoutine({ creatorId, isPublic, name, goal }) {
 }
 //first branch routines
 async function getRoutineById(id) {
-
+  try {
+    const { rows: [routine] } = await client.query(
+      `
+    SELECT *
+    FROM routines
+    WHERE routines.id=$1;
+  `, [id]
+    );
+    return routine
+  } catch (error) {
+    console.error("Failed to get routine")
+    throw error;
+  }
 }
 
-async function getRoutinesWithoutActivities() { }
+async function getRoutinesWithoutActivities() {
+  try {
+
+    const { rows: routines } = await client.query(
+      `
+      SELECT routines.*, users.username AS "creatorName"
+      FROM routines
+      JOIN users
+      ON routines."creatorId" = users.id;
+    `
+    );
+    return routines;
+  } catch (error) {
+    console.error("failed to get routines!");
+    throw error;
+  }
+}
 
 async function getAllRoutines() {
   try {
