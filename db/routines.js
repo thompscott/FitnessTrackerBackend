@@ -33,7 +33,6 @@ async function getAllRoutines() {
       ON routines."creatorId" = users.id
     `
     );
-    console.log(routines, "all of our routines")
     return attachActivitiesToRoutines(routines);
   } catch (error) {
     console.error("failed to get routines!");
