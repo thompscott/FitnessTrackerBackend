@@ -1,16 +1,27 @@
 const express = require('express');
-const app = express();
 // const { createUser, getUserByUsername } = require('../db/');
 const router = express.Router();
 
 
-
+// router.use((req, res, next) => {
+//     try {
+//         console.log({message:"Server is up!"})
+//         next()
+//     }
+//     catch(error){
+//         next(error)
+//     }
+// })
 // GET /api/health
-router.get('/health', async (req, response, next) => {
-    response.body=await {message:"string"}
-    response.send('Server is up!')
-    console.log(response.body.message)
+router.get('/health', async (req, res, next) => {
+    try {
+        res.send({message:"Server is up!"})
+    }
+    catch(error){
+        next(error)
+    }
 });
+
 
 // ROUTER: /api/users
 const usersRouter = require('./users');
@@ -36,5 +47,8 @@ router.use('/routines/:routineId/activities', routinesRouter);
 const routineActivitiesRouter = require('./routineActivities');
 router.use('/routine_activities', routineActivitiesRouter);
 router.use('/routine_activities/:routineActivityId', routineActivitiesRouter);
+
+
+// Error Handler
 
 module.exports = router;

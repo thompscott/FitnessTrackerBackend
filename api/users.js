@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 const express = require("express");
 const usersRouter = express.Router();
-const { createUser, getUserByUsername } = require('./index')
+const { createUser, getUserByUsername } = require('../db/index')
 
 usersRouter.post("/register", async (req, res, next) => {
     const { username, password } = req.body;
