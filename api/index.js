@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors');
 const app = express();
 const { createUser, getUserByUsername } = require('..db/');
 const router = express.Router();
