@@ -29,6 +29,7 @@ app.get('*', (req, res) => {
 
 app.use((error, req, res, next) => {
   res.send({
+    error: error.name,
     name: error.name,
     message: error.message
   });

@@ -7,12 +7,20 @@ usersRouter.post("/register", async (req, res, next) => {
     const { username, password } = req.body;
   
     try {
+      if(password.length < 8) {
+        next({
+          error: "ShortPassword",
+          name: "ShortPasswordError",
+          message: "Password Too Short!"
+        })
+      }
       const _user = await getUserByUsername(username);
   
       if (_user) {
         next({
+          error: "UserExists",
           name: "UserExistsError",
-          message: "A user by that username already exists",
+          message: `User ${username} is already taken.`,
         });
       }
   
@@ -20,24 +28,26 @@ usersRouter.post("/register", async (req, res, next) => {
         username,
         password,
       });
-  
+
       const token = jwt.sign(
         {
           id: user.id,
           username,
         },
-        process.env.JWT_SECRET,
+        JWT_SECRET,
         {
-          expiresIn: "1w",
+          expiresIn: '1w',
         }
       );
   
       res.send({
         message: "thank you for signing up",
-        token,
+        token: " ",
+        user: user,
+    
       });
-    } catch ({ name, message }) {
-      next({ name, message });
+    } catch ({ error, name, message }) {
+      next({ error, name, message });
     }
   });
 
