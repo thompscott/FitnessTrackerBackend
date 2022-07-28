@@ -47,7 +47,7 @@ usersRouter.post("/register", async (req, res, next) => {
   
       res.send({
         message: "thank you for signing up",
-        token: " ",
+        token: token,
         user: user,
     
       });
@@ -94,42 +94,18 @@ usersRouter.post("/register", async (req, res, next) => {
 
   usersRouter.get('/me', async (req, res, next) => {
     try {
-      console.log(req.user.id)
-      if (req.user.id) {
-       const user = await getUserById(req.user.id)
-       console.log(req.user.id)
-       res.send(user)
-      } else {
-        res.status(401).send ("some str4ing")
-        // next({
-        //   error: "Invalid token",
-        //   name: "Token is not valid",
-        //   message: `Invalid token when login`,
-        // });
+      if(req.user) {
+        res.send(req.user);
       }
-      // const user = await getUserByUsername(username);
-  
-      // if (user && user.password === password) {
-      //   // create token & return to user
-      //   const newToken = jwt.sign(
-        //   {
-        //     id: user.id,
-        //     username: user.username,
-        //   },
-        //   process.env.JWT_SECRET,
-        //   { expiresIn: "1w" }
-        // );
-        // res.send({user:user, token: newToken, message: "you're logged in!" });
-      // } else {
-      //   next({
-      //     name: "IncorrectCredentialsError",
-      //     message: "Username or password is incorrect",
-      //   });
-      // }
-    } catch ({ name, message }) {
-      next({ name, message });
-    }
-  });
+      else {
+        res.status(401).send({error: '401 - Unauthorized', message: "You must be logged in to perform this action", name:"UnauthorizedError"})
+      }
+      
+  }
+  catch (error){
+    next(error);
+  }
+});
 
   
 

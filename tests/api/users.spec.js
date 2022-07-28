@@ -217,7 +217,6 @@ describe("/api/users", () => {
 
     it("rejects requests with no valid token", async () => {
       const response = await request(app).get("/api/users/me");
-
       expect(response.status).toBe(401);
 
       expectToHaveErrorMessage(response.body, UnauthorizedError());
