@@ -1,13 +1,15 @@
 const express = require('express');
 const app = express();
-const { createUser, getUserByUsername } = require('..db/');
+// const { createUser, getUserByUsername } = require('../db/');
 const router = express.Router();
 
 
 
 // GET /api/health
-router.get('/health', async (req, res, next) => {
-    res.send('Server is up!')
+router.get('/health', async (req, response, next) => {
+    response.body=await {message:"string"}
+    response.send('Server is up!')
+    console.log(response.body.message)
 });
 
 // ROUTER: /api/users
