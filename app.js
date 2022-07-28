@@ -29,7 +29,7 @@ app.get('*', (req, res) => {
 app.use((error, req, res, next) => {
   // console.error('SERVER ERROR: ', error);
   if(res.statusCode < 400) {res.status(500)}
-  res.send({error: error.message, name: error.name, message: error.message});
+  res.send({error: error.error, name: error.name, message: error.message});
 });
 
 
