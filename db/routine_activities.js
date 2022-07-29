@@ -18,7 +18,7 @@ async function addActivityToRoutine({
     );
     return activity
   } catch (error) {
-    console.error("Failed to add activity to routine")
+    console.error("Failed to add activity to routine!")
   }
 }
 
@@ -34,7 +34,7 @@ async function getRoutineActivityById(id) {
     );
     return activity
   } catch (error) {
-    console.error("Failed to get routine activities")
+    console.error("Failed to get routine activities!")
     throw error;
   }
 
@@ -51,7 +51,7 @@ async function getRoutineActivitiesByRoutine({ id }) {
     );
     return activity
   } catch (error) {
-    console.error("Failed to get routine activities by routines")
+    console.error("Failed to get routine activities by routines!")
     throw error;
   }
 

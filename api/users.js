@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-catch */
 const express = require("express");
+const bcrypt = require("bcrypt");
 const usersRouter = express.Router();
 const {
   createUser,
@@ -70,8 +71,9 @@ usersRouter.post("/login", async (req, res, next) => {
 
   try {
     const user = await getUserByUsername(username);
-
-    if (user && user.password === password) {
+    const hashedPassword = user.password
+    if (user && await bcrypt.compare(password, hashedPassword)) {
+      
       // create token & return to user
       const newToken = jwt.sign(
         {

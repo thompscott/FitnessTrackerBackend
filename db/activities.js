@@ -16,7 +16,7 @@ async function createActivity({ name, description }) {
 
     return activity;
   } catch (error) {
-    console.error("failed to create activity!");
+    console.error("Failed to create activity!");
     throw error;
   }
 }
@@ -33,7 +33,7 @@ async function getAllActivities() {
 
     return rows;
   } catch (error) {
-    console.error("failed to get activities!");
+    console.error("Failed to get activities!");
     throw error;
   }
 }
@@ -53,7 +53,7 @@ async function getActivityById(id) {
 
     return activity;
   } catch (error) {
-    console.error("failed to get activity!");
+    console.error("Failed to get activity!");
     throw error;
   }
 }
@@ -73,7 +73,7 @@ async function getActivityByName(name) {
 
     return activity;
   } catch (error) {
-    console.error("failed to get activity!");
+    console.error("Failed to get activity!");
     throw error;
   }
 }
@@ -102,7 +102,7 @@ async function attachActivitiesToRoutines(routines) {
       routine.activities = activitiesToAdd;
     }
     return routinesToReturn;
-  } catch (error) { console.error("failed to attach activities")
+  } catch (error) { console.error("Failed to attach activities!")
     throw error;
   }
 }
@@ -128,7 +128,7 @@ async function updateActivity({ id, ...fields }) {
       return rows[0];
     }
   } catch (error) {
-    console.error("failed to update activity!");
+    console.error("Failed to update activity!");
     throw error;
   }
 }
