@@ -15,7 +15,7 @@ activitiesRouter.get("/:activityId/routines", async (req, res, next) => {
         // console.log(activities, "this is our activity")
         res.send(activities)
     } catch (error) {
-        next({ error: error.error, message: error.message, name: error.name })
+        next(error);
     }
 })
 
@@ -25,7 +25,7 @@ activitiesRouter.get("/", async (req, res, next) => {
         const activities = await getAllActivities()
         res.send(activities)
     } catch (error) {
-        next({ error: error.error, message: error.message, name: error.name })
+        next(error);
     }
 })
 
@@ -40,7 +40,7 @@ activitiesRouter.post("/", async (req, res, next) => {
         }
 
     } catch (error) {
-        next({ error: error.error, message: error.message, name: error.name })
+        next(error)
     }
 })
 
@@ -59,7 +59,7 @@ activitiesRouter.patch("/:activityId", async (req, res, next) => {
         res.send(activities)
 
     } catch (error) {
-        next({ error: error.error, message: error.message, name: error.name })
+        next(error);
     }
 })
 
