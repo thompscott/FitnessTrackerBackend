@@ -115,7 +115,7 @@ usersRouter.get("/me", async (req, res, next) => {
 
 usersRouter.get("/:username/routines", async (req, res, next) => {
   try {
-    if (req.user.username === req.params.username) {
+    if (req.user && req.user.username === req.params.username) {
       const routines = await getAllRoutinesByUser({
         username: req.params.username,
       });
