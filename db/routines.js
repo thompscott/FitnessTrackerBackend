@@ -140,7 +140,7 @@ async function getPublicRoutinesByActivity({ id }) {
     let publicRoutines = await attachActivitiesToRoutines(routines);
     publicRoutines = publicRoutines.filter(routine => {
       for (let i = 0; i < routine.activities.length; i++) {
-        if (routine.activities[i].id === id) {
+        if (routine.activities[i].id == id) {
           return true;
         }
       }

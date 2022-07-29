@@ -10,7 +10,7 @@ async function addActivityToRoutine({
 }) {
   try {
 
-    const{ rows: [activity] } = await client.query(
+    const { rows: [activity] } = await client.query(
       `INSERT INTO routine_activities("routineId", "activityId", count, duration)
      VALUES ($1, $2, $3, $4) 
      RETURNING *;`,
@@ -22,7 +22,7 @@ async function addActivityToRoutine({
   }
 }
 
-async function getRoutineActivityById(id) { 
+async function getRoutineActivityById(id) {
 
   try {
     const { rows: [activity] } = await client.query(
@@ -40,7 +40,7 @@ async function getRoutineActivityById(id) {
 
 }
 
-async function getRoutineActivitiesByRoutine({ id }) { 
+async function getRoutineActivitiesByRoutine({ id }) {
   try {
     const { rows: activity } = await client.query(
       `
@@ -54,7 +54,7 @@ async function getRoutineActivitiesByRoutine({ id }) {
     console.error("Failed to get routine activities by routines")
     throw error;
   }
-  
+
 }
 
 async function updateRoutineActivity({ id, ...fields }) {
@@ -83,27 +83,27 @@ async function updateRoutineActivity({ id, ...fields }) {
 
 async function destroyRoutineActivity(id) {
   try {
-    const { rows: [routId] } = 
-    await client.query(
-      `
+    const { rows: [routId] } =
+      await client.query(
+        `
     DELETE 
     FROM routine_activities
     WHERE id=$1
-    RETURNING id;
+    RETURNING *;
   `, [id]
-    );
-  return routId
-   
+      );
+    return routId
+
   } catch (error) {
     console.error("Failed to delete routine activity!")
     throw error;
   }
 }
 
-async function canEditRoutineActivity(routineActivityId, userId) { 
+async function canEditRoutineActivity(routineActivityId, userId) {
   const activity = await getRoutineActivityById(routineActivityId)
   const routine = await getRoutineById(activity.routineId)
-  if(routine.creatorId === userId){
+  if (routine.creatorId === userId) {
     return true;
   }
   return false;

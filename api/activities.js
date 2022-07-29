@@ -8,11 +8,8 @@ activitiesRouter.get("/:activityId/routines", async (req, res, next) => {
         if (! await getActivityById(req.params.activityId)) {
             res.send({ error: "activity error", message: `Activity ${req.params.activityId} not found`, name: "existingactivityerror" })
         }
-        // Problem req.params don't work
-        const actId = req.params.activityId
-        console.log(actId, "this is our activity")
-        const activities = await getPublicRoutinesByActivity({ id: actId })
-        // console.log(activities, "this is our activity")
+        const { activityId } = req.params
+        const activities = await getPublicRoutinesByActivity({ id: activityId })
         res.send(activities)
     } catch (error) {
         next(error);
