@@ -11,7 +11,7 @@ async function createRoutine({ creatorId, isPublic, name, goal }) {
     );
     return rows[0];
   } catch (error) {
-    console.error("failed to create routine!")
+    console.error("Failed to create routine!")
     throw error;
   }
 }
@@ -27,7 +27,7 @@ async function getRoutineById(id) {
     );
     return routine
   } catch (error) {
-    console.error("Failed to get routine")
+    console.error("Failed to get routine!")
     throw error;
   }
 }
@@ -45,7 +45,7 @@ async function getRoutinesWithoutActivities() {
     );
     return routines;
   } catch (error) {
-    console.error("failed to get routines!");
+    console.error("Failed to get routines!");
     throw error;
   }
 }
@@ -63,7 +63,7 @@ async function getAllRoutines() {
     );
     return attachActivitiesToRoutines(routines);
   } catch (error) {
-    console.error("failed to get routines!");
+    console.error("Failed to get routines!");
     throw error;
   }
 }
@@ -82,7 +82,7 @@ async function getAllPublicRoutines() {
     );
     return attachActivitiesToRoutines(routines);
   } catch (error) {
-    console.error("failed to get routines!");
+    console.error("Failed to get routines!");
     throw error;
   }
 }
@@ -101,7 +101,7 @@ async function getAllRoutinesByUser({ username }) {
     );
     return attachActivitiesToRoutines(routines);
   } catch (error) {
-    console.error("failed to get routines!");
+    console.error("Failed to get routines!");
     throw error;
   }
 }
@@ -120,7 +120,7 @@ async function getPublicRoutinesByUser({ username }) {
     );
     return attachActivitiesToRoutines(routines);
   } catch (error) {
-    console.error("failed to get routines!");
+    console.error("Failed to get routines!");
     throw error;
   }
 }
@@ -140,7 +140,7 @@ async function getPublicRoutinesByActivity({ id }) {
     let publicRoutines = await attachActivitiesToRoutines(routines);
     publicRoutines = publicRoutines.filter(routine => {
       for (let i = 0; i < routine.activities.length; i++) {
-        if (routine.activities[i].id === id) {
+        if (routine.activities[i].id == id) {
           return true;
         }
       }
@@ -148,7 +148,7 @@ async function getPublicRoutinesByActivity({ id }) {
     });
     return publicRoutines;
   } catch (error) {
-    console.error("failed to get routines!");
+    console.error("Failed to get routines!");
     throw error;
   }
 }
@@ -172,7 +172,7 @@ async function updateRoutine({ id, ...fields }) {
       return rows[0];
     }
   } catch (error) {
-    console.error("failed to update routine!");
+    console.error("Failed to update routine!");
     throw error;
   }
 }
@@ -194,7 +194,7 @@ async function destroyRoutine(id) {
   `, [id]
     );
   } catch (error) {
-    console.error("Failed to delete routine")
+    console.error("Failed to delete routine!")
     throw error;
   }
 }
